@@ -7,7 +7,7 @@ const enquirer = new Enquirer();
 
 /* Checks to run each item through */
 const checks = [
-    require('./checks/test-check.js')
+    require('./checks/item-template.js')
 ];
 
 /* Canvas ID */
