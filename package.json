@@ -1,0 +1,27 @@
+{
+  "name": "course-standards-checker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/byuitechops/course-standards-checker.git"
+  },
+  "author": "Zachary Williams, Benjamin Earl, Seth Childers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/byuitechops/course-standards-checker/issues"
+  },
+  "homepage": "https://github.com/byuitechops/course-standards-checker#readme",
+  "dependencies": {
+    "canvas-api-wrapper": "^3.0.2",
+    "cheerio": "^1.0.0-rc.2",
+    "enquirer": "^1.0.3",
+    "logger": "github:byuitechops/logger",
+    "prompt-checkbox": "^2.2.0"
+  }
+}
