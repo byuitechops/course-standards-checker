@@ -23,7 +23,11 @@ module.exports = (item, logger) => {
 
     /* Example Log */
 
-    logger.log(`${item.constructor.name} | What it be about`);
+    logger.log(`${item.constructor.name} | What it be about`, {
+        'Title': 'title goes here',
+        'ID': 'ID goes here',
+        'etc': 'other stuff'
+    });
 
     // item.getId()
     // item.getTitle()
