@@ -36,7 +36,7 @@ enquirer.ask()
             // module items
             ([].concat(...(await Promise.all(course.modules.items.map(module => module.items.getAll()))))),
             // quiz questions
-            ([].concat(...(await Promise.all(course.quizzes.items.map(quiz => quiz.questions.getAll()))))),
+            // ([].concat(...(await Promise.all(course.quizzes.items.map(quiz => quiz.questions.getAll()))))),
         ];
 
         /* For each category's items, run them through each check */

@@ -93,7 +93,7 @@ module.exports = (item, logger) => {
 
     /* If the item wasn't deleted, log it */
     if (notDeleted) {
-        logger.log(`${item.constructor.name} | Not Deleted From The Course`, {
+        logger.log(`${item.constructor.name} | Item Not Deleted From Course`, {
             'Title': item.getTitle(),
             'ID': item.getId(),
         });

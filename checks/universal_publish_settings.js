@@ -31,7 +31,7 @@ module.exports = (item, logger) => {
 
     /* Log the items that weren't published */
     if (found !== undefined && item.published !== undefined && item.published !== found.publish) {
-        logger.log(`${item.constructor.name} | Need to Unpublished`, {
+        logger.log(`${item.constructor.name} | Incorrect Published Setting`, {
             'Title': item.getTitle(),
             'ID': item.getId(),
             'Currently Published': item.published,

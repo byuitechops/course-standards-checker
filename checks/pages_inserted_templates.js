@@ -33,7 +33,7 @@ module.exports = (item, logger) => {
     if (page !== undefined) {
         var hasTemplate = item.body.includes(page.template() + '<h2 style="color:red">Old Content</h2>');
         if (hasTemplate !== true) {
-            logger.log(`${item.constructor.name} | Page Missing Template`, {
+            logger.log(`${item.constructor.name} | Missing Template`, {
                 'Title': item.getTitle(),
                 'ID': item.getId(),
                 'Template Needed': page.templateName
