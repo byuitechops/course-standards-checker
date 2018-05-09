@@ -26,8 +26,8 @@ module.exports = (item, logger) => {
     // item.setTitle(title)
     // item.getHtml()
     // item.setHtml(html)
-    // item.get(callback)
-    // item.update(callback)
-    // item.delete(callback)
-    // item.create(callback)
+    // item.get(optionalCallback)
+    // item.update(optionalCallback)
+    // item.delete(optionalCallback)
+    // item.create(optionalCallback)
 };
