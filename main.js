@@ -23,7 +23,7 @@ enquirer.ask()
 
         /* Retrieve the course */
         var course = await canvas.getCourse(+answers.courseID);
-        var courseObject = await canvas(`/api/v1/courses/${answers.courseID}`);
+        course.courseDetails = await canvas(`/api/v1/courses/${answers.courseID}`);
 
         /* Retrieve the contents of the course */
         var categories = [
@@ -34,7 +34,9 @@ enquirer.ask()
             await course.assignments.getAll(),
             await course.discussions.getAll(),
             // module items
+            ([].concat(...(await Promise.all(course.modules.items.map(module => module.items.getAll()))))),
             // quiz questions
+            ([].concat(...(await Promise.all(course.quizzes.items.map(quiz => quiz.questions.getAll()))))),
         ];
 
         /* For each category's items, run them through each check */
@@ -44,6 +46,6 @@ enquirer.ask()
             });
         });
 
-        reports(logger, courseObject);
+        reports(logger, course.courseDetails);
     })
     .catch(console.error);
