@@ -3,10 +3,10 @@ const moment = require('moment');
 module.exports = (logger, courseID) => {
 
     var htmlHeader = `
-    
+        POTATO
     `;
 
-    logger.setHtmlHeader(html);
+    logger.setHtmlHeader(htmlHeader);
 
     logger.createReportSet('LMS Team', [
 

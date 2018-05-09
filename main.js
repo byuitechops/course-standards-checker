@@ -7,7 +7,8 @@ const enquirer = new Enquirer();
 
 /* Checks to run each item through */
 const checks = [
-    require('./checks/files_large.js')
+    require('./checks/files_large.js'),
+    require('./checks/files_naming.js')
 ];
 
 /* Canvas ID */
@@ -26,7 +27,9 @@ enquirer.ask()
             await course.modules.getAll(),
             await course.quizzes.getAll(),
             await course.assignments.getAll(),
-            await course.discussions.getAll()
+            await course.discussions.getAll(),
+            // module items
+            // quiz questions
         ];
 
         /* For each category's items, run them through each check */

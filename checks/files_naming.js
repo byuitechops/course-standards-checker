@@ -3,7 +3,7 @@ const fileType = require('../misc_scripts/fileType.js');
 
 module.exports = (item, logger) => {
 
-    function logFile(logCategory) {
+    function logFile() {
         logger.log(`${item.constructor.name} | Does Not Meet Naming Conventions`, {
             'Filename': item.display_name,
             'ID': item.id,
@@ -12,10 +12,10 @@ module.exports = (item, logger) => {
 
     if (item.constructor.name !== 'File') {
         return;
+    } else if (item.display_name.match(/_/g).length !== 2 ||
+        fileType(item.display_name) !== item.display_name.split('_')[1]) {
+        // ALSO NEED TO MATCH courseCode
+        logFile();
     }
-
-
-
-    if ()
 
 };
