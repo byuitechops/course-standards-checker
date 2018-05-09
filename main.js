@@ -11,6 +11,10 @@ const checks = [
     require('./checks/files_naming.js')
 ];
 
+/* Disables location and timestamp in HTML report only */
+logger.disableLocation = true;
+logger.disableTimestamp = true;
+
 /* Canvas ID */
 enquirer.question('courseID', 'Canvas Course ID:');
 
@@ -19,6 +23,7 @@ enquirer.ask()
 
         /* Retrieve the course */
         var course = await canvas.getCourse(+answers.courseID);
+        var courseObject = await canvas(`/api/v1/courses/${answers.courseID}`);
 
         /* Retrieve the contents of the course */
         var categories = [
@@ -39,6 +44,6 @@ enquirer.ask()
             });
         });
 
-        reports(logger, answers.courseID);
+        reports(logger, courseObject);
     })
     .catch(console.error);

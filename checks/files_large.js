@@ -14,11 +14,11 @@ module.exports = (item, logger) => {
     if (item.constructor.name !== 'File') {
         return;
     } else if (fileType(item.display_name) === 'video') {
-        logFile('Video File');
+        logFile('Video Files');
     } else if (fileType(item.display_name) === 'audio') {
-        logFile('Audio File');
+        logFile('Audio Files');
     } else if (item.size > 15000) {
-        logFile('Large File');
+        logFile('Large Files');
     }
 
 };

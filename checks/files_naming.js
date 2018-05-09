@@ -12,7 +12,7 @@ module.exports = (item, logger) => {
 
     if (item.constructor.name !== 'File') {
         return;
-    } else if (item.display_name.match(/_/g).length !== 2 ||
+    } else if ((item.display_name.match(/_/g) && item.display_name.match(/_/g).length) !== 2 ||
         fileType(item.display_name) !== item.display_name.split('_')[1]) {
         // ALSO NEED TO MATCH courseCode
         logFile();
