@@ -1,13 +1,13 @@
 const canvas = require('canvas-api-wrapper');
 const reports = require('./reports.js');
 const Logger = require('logger');
-const logger = require('logger');
+const logger = new Logger('Standards Check');
 const Enquirer = require('enquirer');
 const enquirer = new Enquirer();
 
 /* Checks to run each item through */
 const checks = [
-    require('./checks/item-template.js')
+    require('./checks/files_large.js')
 ];
 
 /* Canvas ID */
@@ -32,7 +32,7 @@ enquirer.ask()
         /* For each category's items, run them through each check */
         categories.forEach(category => {
             category.forEach(item => {
-                checks.forEach(check => check(item));
+                checks.forEach(check => check(item, logger));
             });
         });
 
