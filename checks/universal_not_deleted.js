@@ -65,6 +65,8 @@ module.exports = (item, logger) => {
 
 
     var doomedItems = '';
+    var notDeleted = '';
+
     if (item.constructor.name === 'Assignment') {
         doomedItems = assignmentsDeleted;
     }
@@ -85,10 +87,12 @@ module.exports = (item, logger) => {
     }
 
     /* Check if the item still exists but was marked for deletion */
-    var notDeleted = doomedItems.find(currItem => currItem.test(item.getTitle()));
+    if (doomedItems !== '') {
+        notDeleted = doomedItems.find(currItem => currItem.test(item.getTitle()));
+    }
 
     /* If the item wasn't deleted, log it */
-    if (notDeleted !== undefined) {
+    if (notDeleted) {
         logger.log(`${item.constructor.name} | Not Deleted From The Course`, {
             'Filename': item.getTitle(),
             'ID': item.getId(),
