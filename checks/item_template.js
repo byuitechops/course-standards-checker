@@ -13,18 +13,13 @@ module.exports = (item, logger) => {
         'QuizQuestion',
     ];
 
-    // Check if item type should be run
-    var run = types.find(currType => currType === item.constructor.name);
-
-    /* If run is undefined, then move to the next item */
-    if (run === undefined) {
+    if (!types.includes(item.constructor.name)) {
         return;
     }
 
-    /* Example Log */
-
+    // Example Log
     logger.log(`${item.constructor.name} | What it be about`, {
-        'Title': item.getTitle(),
+        'Title': `<a target="_blank" href="${item.html_url}">${item.getTitle()}</a>`,
         'ID': item.getId(),
         'etc': 'other stuff'
     });

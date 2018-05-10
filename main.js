@@ -10,7 +10,11 @@ const enquirer = new Enquirer();
 const checks = [
     require('./checks/files_large.js'),
     require('./checks/files_naming.js'),
-    require('./checks/universal_old_names.js')
+    require('./checks/universal_old_names.js'),
+    require('./checks/universal_not_deleted.js'),
+    require('./checks/moduleitems_requirements.js'),
+    // require('./checks/universal_publish_settings') // FIXME | "moduleItemSettings is not defined" | line 24
+    // require('./checks/pages_inserted_templates.js') // FIXME | "Cannot read property 'includes' of undefined" | line 34
 ];
 
 /* Disables location and timestamp in HTML report only */
@@ -30,17 +34,16 @@ enquirer.ask()
         /* Retrieve the contents of the course */
         var categories = [
             await course.files.getAll(),
-            await course.pages.getAll(),
-            await course.modules.getAll(),
-            await course.quizzes.getAll(),
+            await course.pages.getAll(true),
+            await course.modules.getAll(true),
+            await course.quizzes.getAll(true),
             await course.assignments.getAll(),
             await course.discussions.getAll(),
-            // module items
-            ([].concat(...(await Promise.all(course.modules.items.map(module => module.items.getAll()))))),
-            // quiz questions
-            ([].concat(...(await Promise.all(course.quizzes.items.map(quiz => quiz.questions.getAll()))))),
+            course.modules.reduce((acc, module) => acc.concat(module.items), []),
+            course.quizzes.reduce((acc, quiz) => acc.concat(quiz.questions), []),
         ];
 
+        console.log(categories);
         course.moduleItemList = categories[categories.length - 2];
 
         /* For each category's items, run them through each check */
