@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/byuitechops/course-standards-checker#readme",
   "dependencies": {
-    "canvas-api-wrapper": "^3.0.2",
+    "canvas-api-wrapper": "^3.1.1",
     "cheerio": "^1.0.0-rc.2",
     "enquirer": "^1.0.3",
     "logger": "github:byuitechops/logger",
