@@ -1,24 +1,38 @@
 const canvas = require('canvas-api-wrapper');
 
-module.exports = (item, logger) => {
-    /* Look for the full prefix to see if it is a module item or not. Take into account everything included in resources folders */
-    if (item.constructor.name === 'ModuleItem' || item.constructor.name === 'File' || item.constructor.name === 'Module') {
+module.exports = (item, logger, course) => {
+    /* Determine which item types to run it on */
+    if (item.constructor.name === 'ModuleItem' || item.constructor.name === 'File' || item.constructor.name === 'Module' || item.constructor.name === 'QuizQuestion') {
         return;
     }
 
-var moduleItems = course.moduleItemList.filter(moduleItem => moduleItem.content_id !== undefined);
+    /* If it is a Quiz or Discussion under Assignments, skip it because it is already checked in Quizzes and Discussions */
+    if (item.constructor.name === 'Assignment' && (item.quiz_id || item.discussion_topic)) {
+        return;
+    }
 
-module.exports = (item, logger, course) => {
+    /* Pages don't have content_ids so we have to check if they are connected to module items through the page urls */
+    if (item.constructor.name === 'Page') {
+        var moduleItems = course.moduleItemList.filter(moduleItem => moduleItem.page_url !== undefined);
+    } else {
+        var moduleItems = course.moduleItemList.filter(moduleItem => moduleItem.content_id !== undefined);
+    }
 
-    // check if run
+    /* Again, check pages through the url instead of through their ids which are different than most ids */
+    var found = moduleItems.find(moduleItem => {
+        if (item.constructor.name === 'Page') {
+            return moduleItem.page_url === item.url;
+        } else {
+            return moduleItem.content_id === item.getId();
+        }
+    });
 
-    var found = moduleItems.find(moduleItem => moduleItem.content_id === item.id);
-
-    if (found) {
+    /* If there was no module item found for the item, log it */
+    if (found === undefined) {
         logger.log(`${item.constructor.name} | No Associated Module Item`, {
             'Title': item.getTitle(),
             'ID': item.getId(),
+            'Type': item.constructor.name,
         });
     }
-
 };
