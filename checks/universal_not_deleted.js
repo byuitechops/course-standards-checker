@@ -36,7 +36,6 @@ module.exports = (item, logger) => {
         /how\s*to\s*understand\s*due\s*date(s)*/gi,
         /^schedule$/gi,
         /course\s*schedule\d*\D*archived/gi,
-        /course\s*maintenance\s*log/gi,
         /course\s*search\s*tool/gi,
         /weekly\s*patterns?\s*(and|&)\s*expectations?\s*/gi,
         /course\s*outline/gi,

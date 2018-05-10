@@ -1,17 +1,6 @@
-module.exports = (item, logger) => {
+module.exports = (item, logger, course) => {
     // An array of the types that should be run
-    let types = [
-        'Assignment',
-        'Discussion',
-        'File',
-        'ModuleItem',
-        'Module',
-        'Page',
-        'Quiz',
-        'QuizQuestion',
-    ];
-
-    if (!types.includes(item.constructor.name)) {
+    if (!module.exports.details.types.includes(item.constructor.name)) {
         return;
     }
 
@@ -31,4 +20,20 @@ module.exports = (item, logger) => {
     // item.update(optionalCallback)
     // item.delete(optionalCallback)
     // item.create(optionalCallback)
+};
+
+module.exports.details = {
+    filename: 'item_template', // exclude .js
+    title: 'Large Files',
+    description: 'These are files that are over 15 MB in size. Blah blah blah.',
+    types: [
+        'Assignment',
+        'Discussion',
+        'File',
+        'ModuleItem',
+        'Module',
+        'Page',
+        'Quiz',
+        'QuizQuestion',
+    ]
 };

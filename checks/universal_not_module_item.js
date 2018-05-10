@@ -9,11 +9,13 @@ module.exports = (item, logger, course) => {
         return;
     }
 
+    var moduleItemList = course.modules.reduce((acc, module) => acc.concat(module.items), []);
+
     /* Pages don't have content_ids so we have to check if they are connected to module items through the page urls */
     if (item.constructor.name === 'Page') {
-        var moduleItems = course.moduleItemList.filter(moduleItem => moduleItem.page_url !== undefined);
+        var moduleItems = moduleItemList.filter(moduleItem => moduleItem.page_url !== undefined);
     } else {
-        var moduleItems = course.moduleItemList.filter(moduleItem => moduleItem.content_id !== undefined);
+        var moduleItems = moduleItemList.filter(moduleItem => moduleItem.content_id !== undefined);
     }
 
     /* Again, check pages through the url instead of through their ids which are different than most ids */

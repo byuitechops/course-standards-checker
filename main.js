@@ -15,6 +15,7 @@ const checks = [
     require('./checks/moduleitems_requirements.js'),
     require('./checks/universal_publish_settings.js'),
     require('./checks/universal_references.js'),
+    require('./checks/universal_styling_div.js'),
 ];
 
 /* Disables location and timestamp in HTML report only */
@@ -42,8 +43,6 @@ enquirer.ask()
             course.modules.reduce((acc, module) => acc.concat(module.items), []),
             course.quizzes.reduce((acc, quiz) => acc.concat(quiz.questions), []),
         ];
-
-        course.moduleItemList = categories[categories.length - 2];
 
         /* For each category's items, run them through each check */
         categories.forEach(category => {

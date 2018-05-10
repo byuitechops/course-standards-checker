@@ -1,33 +1,28 @@
-module.exports = (item, logger) => {
-    // An array of the types that should be run
-    let types = [
-        'Assignment',
-        'Discussion',
-        'Page',
-        'Quiz',
-    ];
+var references = [{
+    reg: /!\[CDATA[\s\S]*\]\]/gi,
+    type: 'Javascript'
+}, {
+    reg: /(brightspace)(?!\.com)/gi,
+    type: 'Brightspace References'
+}, {
+    reg: /brainhoney/ig,
+    type: 'Brainhoney References'
+}, {
+    reg: /adobe\s*connect/ig,
+    type: 'Adobe Connect References'
+}, {
+    reg: /((google\s*)?hangouts?(\s*on\s*air)?)|(HOA)/ig,
+    type: 'Hangouts on Air References'
+}];
 
-    if (!types.includes(item.constructor.name)) {
+var validItems = [
+    'Release Notes'
+];
+
+module.exports = (item, logger) => {
+    if (!module.exports.details.types.includes(item.constructor.name) || validItems.includes(item.getTitle())) {
         return;
     }
-
-
-    var references = [{
-        reg: /!\[CDATA[\s\S]*\]\]/gi,
-        type: 'Javascript'
-    }, {
-        reg: /(brightspace)(?!\.com)/gi,
-        type: 'Brightspace References'
-    }, {
-        reg: /brainhoney/ig,
-        type: 'Brainhoney References'
-    }, {
-        reg: /adobe\s*connect/ig,
-        type: 'Adobe Connect References'
-    }, {
-        reg: /((google\s*)?hangouts?(\s*on\s*air)?)|(HOA)/ig,
-        type: 'Hangouts on Air References'
-    }];
 
     /* Check each regex to see if the item contents has any matches */
     references.forEach(ref => {
@@ -42,4 +37,16 @@ module.exports = (item, logger) => {
             });
         }
     });
+};
+
+module.exports.details = {
+    filename: 'universal_references', // exclude .js
+    title: 'Large Files',
+    description: 'These are files that are over 15 MB in size. Blah blah blah.',
+    types: [
+        'Assignment',
+        'Discussion',
+        'Page',
+        'Quiz',
+    ]
 };
