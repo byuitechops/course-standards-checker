@@ -32,7 +32,6 @@ module.exports = (item, logger, course) => {
         logger.log(`No Associated Module Item&nbsp;<span style="color:#aaa">[${item.constructor.name}]</span>&nbsp;`, {
             'Title': `<a target="_blank" href="${item.html_url}">${item.getTitle()}</a>`,
             'ID': item.getId(),
-            'Type': item.constructor.name,
         });
     }
 };

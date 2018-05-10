@@ -14,7 +14,6 @@ module.exports = (item, logger, course) => {
         'ExternalTool',
     ];
 
-
     if (item.completion_requirement === undefined &&
         !badTypes.includes(item.type) &&
         item.module_id !== instructorResources.id &&
