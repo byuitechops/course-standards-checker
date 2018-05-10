@@ -13,8 +13,6 @@ module.exports = (item, logger, course) => {
         'SubHeader',
         'ExternalTool',
     ];
-    var instructorResources = course.modules.find(module => module.name.includes('Instructor Resources'));
-    var studentResources = course.modules.find(module => module.name.includes('Student Resources'));
 
     if (item.completion_requirement === undefined &&
         !badTypes.includes(item.type) &&
