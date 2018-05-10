@@ -1,6 +1,10 @@
 const canvas = require('canvas-api-wrapper');
 
 module.exports = (item, logger) => {
+    if (item.constructor.name === 'File') {
+        return;
+    }
+
     /* Pages to be renamed, in LOWER case */
     var itemsToRename = [{
         oldTitle: /Setup\s*(notes)?\sfor\sdevelopment\s*team/gi,
@@ -28,7 +32,7 @@ module.exports = (item, logger) => {
     /* The test returns TRUE or FALSE - action() is called if true */
     var found = itemsToRename.find(renameItem => renameItem.oldTitle.test(item.getTitle()));
 
-    if (found !== undefined && found.newTitle !== item.getTitle()) {
+    if ((found !== undefined && found.newTitle !== item.getTitle())) {
         logger.log(`${item.constructor.name} | Still Using Old Name`, {
             'Current Title': item.getTitle(),
             'Title Should Be': found.newTitle,
