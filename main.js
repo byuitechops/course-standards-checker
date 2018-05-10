@@ -10,12 +10,14 @@ const enquirer = new Enquirer();
 const checks = [
     require('./checks/files_large.js'),
     require('./checks/files_naming.js'),
+    require('./checks/moduleitems_requirements.js'),
+    require('./checks/module_contains.js'),
     require('./checks/universal_old_names.js'),
     require('./checks/universal_not_deleted.js'),
-    require('./checks/moduleitems_requirements.js'),
     require('./checks/universal_publish_settings.js'),
     require('./checks/universal_references.js'),
     require('./checks/universal_styling_div.js'),
+    require('./checks/universal_not_module_item'),
 ];
 
 /* Disables location and timestamp in HTML report only */
