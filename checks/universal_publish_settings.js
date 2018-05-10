@@ -1,6 +1,6 @@
 const canvas = require('canvas-api-wrapper');
 
-module.exports = (item, logger) => {
+module.exports = (item, logger, course) => {
     /* Modules to be published, in LOWER case */
     var moduleSettings = [{
         reg: /instructor\s*resources/i,
@@ -12,7 +12,6 @@ module.exports = (item, logger) => {
         reg: /w\d?\d?\s(teaching|lesson)\snotes\s\(do\snot\spublish\)/gi,
         publish: false
     }];
-
 
     var publishSettings = '';
 
@@ -35,6 +34,12 @@ module.exports = (item, logger) => {
             'ID': item.getId(),
             'Currently': item.published,
             'Should Be Published': found.publish,
+        });
+    } else if (item.published !== undefined && item.published !== true) {
+        logger.log(`${item.constructor.name} | Not published`, {
+            'Title': item.getTitle(),
+            'ID': item.getId(),
+            'Published': item.published,
         });
     }
 };

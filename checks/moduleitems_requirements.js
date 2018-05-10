@@ -10,7 +10,6 @@ module.exports = (item, logger, course) => {
         'ExternalUrl',
         'ExternalTool',
     ];
-    console.log(course.modules);
     var instructorResources = course.modules.find(module => module.name.includes('Instructor Resources'));
     var studentResources = course.modules.find(module => module.name.includes('Student Resources'));
 

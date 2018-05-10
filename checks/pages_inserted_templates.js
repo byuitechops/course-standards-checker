@@ -31,7 +31,7 @@ module.exports = (item, logger) => {
     var page = pagesToChange.find(currPage => currPage.title.test(item.getTitle()));
 
     if (page !== undefined) {
-        var hasTemplate = item.body.includes(page.template() + '<h2 style="color:red">Old Content</h2>');
+        var hasTemplate = item.body.includes(page.template() + '<h2 style="color: red;">Old Content</h2>');
         if (hasTemplate !== true) {
             logger.log(`${item.constructor.name} | Missing Template`, {
                 'Title': item.getTitle(),

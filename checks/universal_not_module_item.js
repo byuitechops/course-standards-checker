@@ -32,7 +32,6 @@ module.exports = (item, logger, course) => {
         logger.log(`${item.constructor.name} | No Associated Module Item`, {
             'Title': item.getTitle(),
             'ID': item.getId(),
-            'Type': item.constructor.name,
         });
     }
 };
