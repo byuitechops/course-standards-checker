@@ -1,5 +1,3 @@
-const canvas = require('canvas-api-wrapper');
-
 module.exports = (item, logger, course) => {
     /* Modules to be published, in LOWER case */
     var moduleSettings = [{
@@ -29,8 +27,8 @@ module.exports = (item, logger, course) => {
 
     /* Log the items that weren't published */
     if (found !== undefined && item.published !== undefined && item.published !== found.publish) {
-        logger.log(`${item.constructor.name} | Incorrect Published Setting`, {
-            'Title': item.getTitle(),
+        logger.log(`Incorrect Publish Setting&nbsp;<span style="color:#aaa">[${item.constructor.name}]</span>&nbsp;`, {
+            'Title': `<a target="_blank" href="${item.html_url}">${item.getTitle()}</a>`,
             'ID': item.getId(),
             'Currently': item.published,
             'Should Be Published': found.publish,
