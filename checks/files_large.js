@@ -1,14 +1,13 @@
-const canvas = require('canvas-api-wrapper');
 const fileType = require('../misc_scripts/fileType.js');
 
 module.exports = (item, logger) => {
 
     function logFile(logCategory) {
 
-        logger.log(`${item.constructor.name} | ${logCategory}`, {
-            'Filename': item.display_name,
+        logger.log(`${logCategory}&nbsp;<span style="color:#aaa">[${item.constructor.name}]</span>&nbsp;`, {
+            'Filename': `<a target="_blank" href="${item.html_url}">${item.getTitle()}</a>`,
             'ID': item.id,
-            'Size': `${Math.round(item.size / 100000)} MB | ${item.size} Bytes`
+            'Size': `${Math.round(item.size / 1000000)} MB | ${item.size} Bytes`
         });
     }
 

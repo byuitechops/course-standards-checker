@@ -13,8 +13,8 @@ const checks = [
     require('./checks/universal_old_names.js'),
     require('./checks/universal_not_deleted.js'),
     require('./checks/moduleitems_requirements.js'),
-    // require('./checks/universal_publish_settings') // FIXME | "moduleItemSettings is not defined" | line 24
-    // require('./checks/pages_inserted_templates.js') // FIXME | "Cannot read property 'includes' of undefined" | line 34
+    require('./checks/universal_publish_settings.js'),
+    require('./checks/universal_references.js'),
 ];
 
 /* Disables location and timestamp in HTML report only */
@@ -43,7 +43,6 @@ enquirer.ask()
             course.quizzes.reduce((acc, quiz) => acc.concat(quiz.questions), []),
         ];
 
-        console.log(categories);
         course.moduleItemList = categories[categories.length - 2];
 
         /* For each category's items, run them through each check */

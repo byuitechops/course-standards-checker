@@ -1,5 +1,3 @@
-const canvas = require('canvas-api-wrapper');
-
 module.exports = (item, logger) => {
 
     /* Files that should have been deleted on conversion */
@@ -42,7 +40,6 @@ module.exports = (item, logger) => {
         /course\s*search\s*tool/gi,
         /weekly\s*patterns?\s*(and|&)\s*expectations?\s*/gi,
         /course\s*outline/gi,
-        /syllabus(?!\s*quiz)(?!\s*discussion)(?!\s*activity)/gi,
     ];
 
     /* Online modules to delete, not on campus modules */
@@ -93,8 +90,8 @@ module.exports = (item, logger) => {
 
     /* If the item wasn't deleted, log it */
     if (notDeleted) {
-        logger.log(`${item.constructor.name} | Item Not Deleted From Course`, {
-            'Title': item.getTitle(),
+        logger.log(`Items Not Deleted From Course&nbsp;<span style="color:#aaa">[${item.constructor.name}]</span>&nbsp;`, {
+            'Title': `<a target="_blank" href="${item.html_url}">${item.getTitle()}</a>`,
             'ID': item.getId(),
         });
     }

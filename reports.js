@@ -25,12 +25,12 @@ module.exports = (logger, courseDetails) => {
     logger.setTagDescription('File | Video Files', 'These are video files saved in the course.');
     logger.setTagDescription('File | Audio Files', 'These are audio files saved in the course.');
     logger.setTagDescription('File | Does Not Meet Naming Conventions', 'These files do not meet the standard naming conventions. Each file should be named like this:  [coursecode]_[filetype]_[filename].[ext]');
-
     logger.setTagDescription('Page | Missing Template', 'These pages did not receive their designated html template files.');
     logger.setTagDescription('Universal | Item Not Deleted From Course', 'These items were supposed to be deleted from the course, but haven\'t been.');
     logger.setTagDescription('Universal | No Associated Module Item', 'These items are not linked to a module item.');
     logger.setTagDescription('Universal | Still Using Old Name', 'These items were not renamed as they were supposed to.');
     logger.setTagDescription('Universal | Incorrect Published Setting', 'These items\' published settings should have been changed.');
+    logger.setTagDescription('ModuleItem | No Completion Requirements', 'These items do not have any completion requirements.');
 
 
     /* Generate the reports */

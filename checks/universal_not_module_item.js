@@ -1,5 +1,3 @@
-const canvas = require('canvas-api-wrapper');
-
 module.exports = (item, logger, course) => {
     /* Determine which item types to run it on */
     if (item.constructor.name === 'ModuleItem' || item.constructor.name === 'File' || item.constructor.name === 'Module' || item.constructor.name === 'QuizQuestion') {
@@ -29,8 +27,8 @@ module.exports = (item, logger, course) => {
 
     /* If there was no module item found for the item, log it */
     if (found === undefined) {
-        logger.log(`${item.constructor.name} | No Associated Module Item`, {
-            'Title': item.getTitle(),
+        logger.log(`No Associated Module Item&nbsp;<span style="color:#aaa">[${item.constructor.name}]</span>&nbsp;`, {
+            'Title': `<a target="_blank" href="${item.html_url}">${item.getTitle()}</a>`,
             'ID': item.getId(),
             'Type': item.constructor.name,
         });

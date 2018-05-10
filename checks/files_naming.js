@@ -1,11 +1,10 @@
-const canvas = require('canvas-api-wrapper');
 const fileType = require('../misc_scripts/fileType.js');
 
 module.exports = (item, logger, course) => {
 
     function logFile() {
-        logger.log(`${item.constructor.name} | Does Not Meet Naming Conventions`, {
-            'Filename': item.display_name,
+        logger.log(`Does Not Meet Naming Conventions&nbsp;<span style="color:#aaa">[${item.constructor.name}]</span>&nbsp;`, {
+            'Filename': `<a target="_blank" href="${item.html_url}">${item.getTitle()}</a>`,
             'ID': item.id,
         });
     }

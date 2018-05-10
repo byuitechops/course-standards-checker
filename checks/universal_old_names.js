@@ -1,5 +1,3 @@
-const canvas = require('canvas-api-wrapper');
-
 module.exports = (item, logger) => {
     if (item.constructor.name === 'File') {
         return;
@@ -33,8 +31,8 @@ module.exports = (item, logger) => {
     var found = itemsToRename.find(renameItem => renameItem.oldTitle.test(item.getTitle()));
 
     if ((found !== undefined && found.newTitle !== item.getTitle())) {
-        logger.log(`${item.constructor.name} | Still Using Old Name`, {
-            'Current Title': item.getTitle(),
+        logger.log(`Still Using Old Name&nbsp;<span style="color:#aaa">[${item.constructor.name}]</span>&nbsp;`, {
+            'Current Title': `<a target="_blank" href="${item.html_url}">${item.getTitle()}</a>`,
             'Title Should Be': found.newTitle,
             'ID': item.getId(),
         });

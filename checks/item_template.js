@@ -1,5 +1,3 @@
-const canvas = require('canvas-api-wrapper');
-
 module.exports = (item, logger) => {
     // An array of the types that should be run
     let types = [
@@ -18,7 +16,7 @@ module.exports = (item, logger) => {
     }
 
     // Example Log
-    logger.log(`${item.constructor.name} | What it be about`, {
+    logger.log(`What it be about&nbsp;<span style="color:#aaa">[${item.constructor.name}]</span>&nbsp;`, {
         'Title': `<a target="_blank" href="${item.html_url}">${item.getTitle()}</a>`,
         'ID': item.getId(),
         'etc': 'other stuff'
