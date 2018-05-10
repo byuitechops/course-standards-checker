@@ -33,8 +33,8 @@ module.exports = (item, logger) => {
         logger.log(`${item.constructor.name} | Incorrect Published Setting`, {
             'Title': item.getTitle(),
             'ID': item.getId(),
-            'Currently Published': item.published,
-            'Published Should Be': found.publish,
+            'Currently': item.published,
+            'Should Be Published': found.publish,
         });
     }
 };

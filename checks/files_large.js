@@ -11,6 +11,7 @@ module.exports = (item, logger) => {
             'Size': `${Math.round(item.size / 100000)} MB | ${item.size} Bytes`
         });
     }
+
     if (item.constructor.name !== 'File') {
         return;
     } else if (fileType(item.display_name) === 'video') {
@@ -20,5 +21,4 @@ module.exports = (item, logger) => {
     } else if (item.size > 15000000) {
         logFile('Large Files');
     }
-
 };

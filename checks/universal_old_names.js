@@ -28,7 +28,7 @@ module.exports = (item, logger) => {
     /* The test returns TRUE or FALSE - action() is called if true */
     var found = itemsToRename.find(renameItem => renameItem.oldTitle.test(item.getTitle()));
 
-    if (found !== undefined) {
+    if (found !== undefined && found.newTitle !== item.getTitle()) {
         logger.log(`${item.constructor.name} | Still Using Old Name`, {
             'Current Title': item.getTitle(),
             'Title Should Be': found.newTitle,
