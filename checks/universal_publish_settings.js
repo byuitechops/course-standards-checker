@@ -8,14 +8,13 @@ module.exports = (item, logger) => {
     }];
 
     /* moduleItems to be published, in LOWER case */
-    var actionItems = [{
-        reg: /\d*?\s*(teaching|lesson|week)\s*\d*?\s*notes?/gi,
+    var moduleItemSettings = [{
+        reg: /w\d?\d?\s(teaching|lesson)\snotes\s\(do\snot\spublish\)/gi,
         publish: false
     }];
 
 
     var publishSettings = '';
-    var found = false;
 
     if (item.constructor.name === 'Module') {
         publishSettings = moduleSettings;
@@ -26,7 +25,7 @@ module.exports = (item, logger) => {
 
     /* The test returns TRUE or FALSE - action() is called if true */
     if (publishSettings) {
-        found = publishSettings.find(currItem => currItem.reg.test(item.getTitle()));
+        var found = publishSettings.find(currItem => currItem.reg.test(item.getTitle()));
     }
 
     /* Log the items that weren't published */
