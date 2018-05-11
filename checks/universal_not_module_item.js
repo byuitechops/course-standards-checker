@@ -29,9 +29,21 @@ module.exports = (item, logger, course) => {
 
     /* If there was no module item found for the item, log it */
     if (found === undefined) {
-        logger.log(`No Associated Module Item&nbsp;<span style="color:#aaa">[${item.constructor.name}]</span>&nbsp;`, {
-            'Title': `<a target="_blank" href="${item.html_url}">${item.getTitle()}</a>`,
+        logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
+            'Title': course.wrapLink(item.html_url, item.getTitle()),
             'ID': item.getId(),
         });
     }
+};
+
+module.exports.details = {
+    filename: 'universal_not_module_item', // exclude .js
+    title: 'Not in Module Items',
+    description: 'These items are not included in module items. They should be checked to see if are being used in the course.',
+    types: [
+        'Assignment',
+        'Discussion',
+        'Page',
+        'Quiz',
+    ]
 };

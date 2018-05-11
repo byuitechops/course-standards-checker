@@ -9,6 +9,7 @@ const enquirer = new Enquirer();
 /* Checks to run each item through */
 const checks = [
     require('./checks/files_large.js'),
+    require('./checks/files_video_audio.js'),
     require('./checks/files_naming.js'),
     require('./checks/universal_old_names.js'),
     require('./checks/universal_not_deleted.js'),
@@ -44,6 +45,10 @@ enquirer.ask()
             course.quizzes.reduce((acc, quiz) => acc.concat(quiz.questions), []),
         ];
 
+        /* Function to wrap script titles in fancy display goodness */
+        course.wrapTitle = (title, type) => `${title}&nbsp;<span style="color:#aaa">[${type}]</span>&nbsp;`;
+        course.wrapLink = (url, text) => `<a target="_blank" href="${url}">${text}</a>`;
+
         /* For each category's items, run them through each check */
         categories.forEach(category => {
             category.forEach(item => {
@@ -53,6 +58,6 @@ enquirer.ask()
 
         complexityReport(logger, course);
 
-        reports(logger, course.courseDetails);
+        reports(logger, course);
     })
     .catch(console.error);

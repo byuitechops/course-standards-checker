@@ -19,7 +19,7 @@ var validItems = [
     'Release Notes'
 ];
 
-module.exports = (item, logger) => {
+module.exports = (item, logger, course) => {
     if (!module.exports.details.types.includes(item.constructor.name) || validItems.includes(item.getTitle())) {
         return;
     }
@@ -30,8 +30,9 @@ module.exports = (item, logger) => {
         var matches = item.getHtml().match(ref.reg);
         /* See if it contains any of what we're looking for... */
         if (matches != null) {
-            logger.log(`Contains ${ref.type}&nbsp;<span style="color:#aaa">[${item.constructor.name}]</span>&nbsp;`, {
-                'Title': `<a target="_blank" href="${item.html_url}">${item.getTitle()}</a>`,
+            logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
+                'Title': course.wrapLink(item.html_url, item.getTitle()),
+                'Reference': ref.type,
                 'Number of References': matches.length,
                 'ID': item.getId()
             });
@@ -41,12 +42,13 @@ module.exports = (item, logger) => {
 
 module.exports.details = {
     filename: 'universal_references', // exclude .js
-    title: 'Large Files',
-    description: 'These are files that are over 15 MB in size. Blah blah blah.',
+    title: 'Outdated References & Inline Code',
+    description: 'These items contain references to outdated resources or use inline javascript that will not work in Canvas.',
     types: [
         'Assignment',
         'Discussion',
         'Page',
         'Quiz',
+        'QuizQuestion'
     ]
 };

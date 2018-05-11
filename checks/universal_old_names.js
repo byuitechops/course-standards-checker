@@ -1,4 +1,4 @@
-module.exports = (item, logger) => {
+module.exports = (item, logger, course) => {
     if (item.constructor.name === 'File') {
         return;
     }
@@ -30,11 +30,24 @@ module.exports = (item, logger) => {
     /* The test returns TRUE or FALSE - action() is called if true */
     var found = itemsToRename.find(renameItem => renameItem.oldTitle.test(item.getTitle()));
 
-    if ((found !== undefined && found.newTitle !== item.getTitle())) {
-        logger.log(`Still Using Old Name&nbsp;<span style="color:#aaa">[${item.constructor.name}]</span>&nbsp;`, {
-            'Current Title': `<a target="_blank" href="${item.html_url}">${item.getTitle()}</a>`,
+    if (found !== undefined && found.newTitle.replace(/\s/g, '') !== item.getTitle().replace(/\s/g, '')) {
+        logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
+            'Current Title': course.wrapLink(item.html_url, item.getTitle()),
             'Title Should Be': found.newTitle,
             'ID': item.getId(),
         });
     }
+};
+
+module.exports.details = {
+    filename: 'universal_old_names',
+    title: 'Old Titles',
+    description: 'These are items that have old titles that should have been changed.',
+    types: [
+        'Assignment',
+        'Discussion',
+        'Page',
+        'Quiz',
+        'QuizQuestion',
+    ]
 };

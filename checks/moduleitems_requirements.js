@@ -19,8 +19,8 @@ module.exports = (item, logger, course) => {
         item.module_id !== instructorResources.id &&
         item.module_id !== studentResources.id) {
 
-        logger.log(`No Completion Requirements&nbsp;<span style="color:#aaa">[${item.constructor.name}]</span>&nbsp;`, {
-            'Title': `<a target="_blank" href="${item.html_url}">${item.getTitle()}</a>`,
+        logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
+            'Title': course.wrapLink(item.html_url, item.getTitle()),
             'ID': item.id,
             'Module': course.modules.find(module => module.id === item.module_id).name,
             'Type': item.type,
@@ -28,3 +28,10 @@ module.exports = (item, logger, course) => {
 
     }
 }
+
+module.exports.details = {
+    filename: 'moduleitems_requirements', // exclude .js
+    title: 'Module Item Requirements',
+    description: 'All module items should have requirements. Ones that do not are listed below.',
+    types: ['ModuleItem']
+};

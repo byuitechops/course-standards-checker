@@ -5,8 +5,8 @@ module.exports = (item, logger, course) => {
     }
 
     // Example Log
-    logger.log(`What it be about&nbsp;<span style="color:#aaa">[${item.constructor.name}]</span>&nbsp;`, {
-        'Title': `<a target="_blank" href="${item.html_url}">${item.getTitle()}</a>`,
+    logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
+        'Title': course.wrapLink(item.html_url, item.getTitle()),
         'ID': item.getId(),
         'etc': 'other stuff'
     });

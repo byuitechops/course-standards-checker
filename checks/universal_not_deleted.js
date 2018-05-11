@@ -89,9 +89,24 @@ module.exports = (item, logger) => {
 
     /* If the item wasn't deleted, log it */
     if (notDeleted) {
-        logger.log(`Items Not Deleted From Course&nbsp;<span style="color:#aaa">[${item.constructor.name}]</span>&nbsp;`, {
-            'Title': `<a target="_blank" href="${item.html_url}">${item.getTitle()}</a>`,
+        logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
+            'Title': course.wrapLink(item.html_url, item.getTitle()),
             'ID': item.getId(),
         });
     }
+};
+
+module.exports.details = {
+    filename: 'universal_not_deleted', // exclude .js
+    title: 'Items Not Removed From Course',
+    description: 'These items should be removed from the course.',
+    types: [
+        'Assignment',
+        'Discussion',
+        'File',
+        'ModuleItem',
+        'Module',
+        'Page',
+        'Quiz'
+    ]
 };

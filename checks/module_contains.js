@@ -85,7 +85,7 @@ module.exports = (item, logger, course) => {
             standardItem.moduleItemRegs.forEach((reg, i) => { // loop through that module's standard module items
                 var found = item.items.find(currItem => reg.test(currItem.title)); // find any module items on the item that matches one in standardItems                
                 if (found === undefined) { // if no match was found, log it
-                    logger.log(`${item.constructor.name} | Does Not Contain Standard Module Item`, {
+                    logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
                         'Module Item Title': standardItem.moduleItems[i],
                         'Module Title': item.getTitle(),
                         'Module ID': item.getId(),
@@ -94,4 +94,11 @@ module.exports = (item, logger, course) => {
             });
         }
     });
+};
+
+module.exports.details = {
+    filename: 'module_contains', // exclude .js
+    title: 'Required Module Items',
+    description: 'These required module items are missing from the course.',
+    types: ['Module']
 };

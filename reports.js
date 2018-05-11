@@ -1,28 +1,29 @@
 const fs = require('fs');
 
-module.exports = (logger, courseDetails) => {
+module.exports = (logger, course) => {
 
-    var checkScripts = fs.readdirSync('./checks');
-
-    var checkScriptDetails = checkScripts.map(checkScript => require(`./checks/${checkScript}`).details);
+    var scripts = fs.readdirSync('./checks').map(script => require(`./checks/${script}`));
 
     /* Set tag descriptions here */
-    checkScriptDetails.forEach(checkScriptInfo => {
-        console.log(checkScriptInfo);
-        checkScriptInfo.types.forEach(type => {
-            logger.setTagDescription(`${checkScriptInfo.title}&nbsp;<span style="color:#aaa">[${type}]</span>&nbsp;`, checkScriptInfo.description);
+    scripts.forEach((script, index) => {
+        if (!script.details) {
+            console.log(`Script #${index + 1} is missing it's details export.`);
+            return;
+        }
+        script.details.types.forEach(type => {
+            logger.setTagDescription(course.wrapTitle(script.details.title, type), script.details.description);
         });
     });
 
     var htmlHeader = `
-        <div>Course Name: ${courseDetails.name}</div>
-        <div>Course Code: ${courseDetails.course_code}</div>
-        <div>Course ID: ${courseDetails.id}</div>
-        <a target="_blank" href="https://byui.instructure.com/courses/${courseDetails.id}">https://byui.instructure.com/courses/${courseDetails.id}</a>
+        <div>Course Name: ${course.courseDetails.name}</div>
+        <div>Course Code: ${course.courseDetails.course_code}</div>
+        <div>Course ID: ${course.courseDetails.id}</div>
+        <a target="_blank" href="https://byui.instructure.com/courses/${course.courseDetails.id}">https://byui.instructure.com/courses/${course.courseDetails.id}</a>
     `;
 
     logger.setHtmlHeader(htmlHeader);
-    logger.reportTitle = `Standards Check - ${courseDetails.course_code}`;
+    logger.reportTitle = `Standards Check - ${course.courseDetails.course_code}`;
 
     /* What tags are added to the LMS Team report */
     logger.createReportSet('LMS Team', [
