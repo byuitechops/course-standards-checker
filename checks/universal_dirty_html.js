@@ -25,6 +25,7 @@ module.exports = (item, logger, course) => {
             tag: 'div#article',
             issue: 'Deprecated "article" Div'
         }];
+
         tagTests.forEach(tagTest => {
             $(tagTest.tag).each((index, el) => {
                 if (tagTest.issue === 'Empty Tag' && $(el).hasClass('byui')) {

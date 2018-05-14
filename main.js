@@ -12,8 +12,7 @@ const fs = require('fs');
 /* Add script name here if you want to skip it, if it is broken or something */
 const skipChecks = [
     'item_template.js',
-    'universal_images_from_d2l.js',
-    'universal_relative_links.js'
+    'universal_transcripts.js'
 ];
 
 var scriptNames = fs.readdirSync('./checks').filter(check => !skipChecks.includes(check));

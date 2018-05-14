@@ -1,11 +1,21 @@
 const fileType = require('../misc_scripts/fileType.js');
 
+var validFiles = [
+    '-Setup Notes & Course Settings',
+    'courseBanner.jpg',
+    'dashboard.jpg',
+    'homeImage.jpg'
+];
+
 module.exports = (item, logger, course) => {
 
-    function logFile() {
+    var documentsFolder = course.folders.find(folder => folder.name === 'documents');
+
+    function logFile(reason) {
         logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
             'Filename': course.wrapLink(item.getUrl(), item.getTitle()),
             'ID': item.id,
+            'Reason': reason
         });
     }
 
@@ -15,14 +25,20 @@ module.exports = (item, logger, course) => {
         3. The course code is correct in the filename
     */
 
-    // TODO Add a "Reason" section to the log, with why it is incorrect
-
-    if (item.constructor.name !== 'File') {
+    if (item.constructor.name !== 'File' || validFiles.includes(item.display_name)) {
         return;
-    } else if ((item.display_name.match(/_/g) && item.display_name.match(/_/g).length) !== 2 ||
-        fileType(item.display_name) !== item.display_name.split('_')[1] ||
-        item.display_name.split('_')[0] !== course.course_code.replace(/\s/gi, '').toLowerCase()) {
-        logFile();
+    } else if ((item.display_name.match(/_/g) && item.display_name.match(/_/g).length) > 2) {
+        // Too many underscores
+        logFile('Filename contains extra underscores. They should only be used to divide the coursecode, filetype, and filename.');
+    } else if ((item.display_name.match(/_/g) && item.display_name.match(/_/g).length) < 2) {
+        // Not enough underscores
+        logFile('Filename does not have all of the required fields: coursecode_filetype_filename.ext');
+    } else if (fileType(item.display_name) !== item.display_name.split('_')[1] &&
+        (documentsFolder && item.folder_id === documentsFolder.id)) {
+        // Wrong filetype
+        logFile('The filetype does not match the file\'s extension type.');
+    } else if (item.display_name.split('_')[0] !== course.course_code.replace(/\s/gi, '').toLowerCase().split(':')[0]) {
+        logFile('The course code on the file does not match the course.');
     }
 };
 

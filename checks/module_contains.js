@@ -98,6 +98,7 @@ module.exports = (item, logger, course) => {
 
 module.exports.details = {
     filename: 'module_contains', // exclude .js
+    type: 'module_item_should_exist',
     title: 'Required Module Items',
     description: 'These required module items are missing from the course.',
     types: ['Module']

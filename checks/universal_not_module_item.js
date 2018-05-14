@@ -1,6 +1,10 @@
+var validItems = [
+    '-Setup Notes & Course Settings'
+];
+
 module.exports = (item, logger, course) => {
-    /* Determine which item types to run it on */
-    if (item.constructor.name === 'ModuleItem' || item.constructor.name === 'File' || item.constructor.name === 'Module' || item.constructor.name === 'QuizQuestion') {
+    /* If it isn't a valid type to run on, don't run */
+    if (!module.exports.details.types.includes(item.constructor.name)) {
         return;
     }
 
@@ -11,6 +15,11 @@ module.exports = (item, logger, course) => {
 
     /* Return if it is the homepage */
     if (item.constructor.name === 'Page' && (item.front_page === true || item.getTitle === '-Setup Notes & Course Settings')) {
+        return;
+    }
+
+    /* Return if it is a valid non-module item */
+    if (validItems.includes(item.getTitle())) {
         return;
     }
 
