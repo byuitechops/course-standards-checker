@@ -15,12 +15,13 @@ module.exports = (item, logger, course) => {
 
     var $ = cheerio.load(item.getHtml());
 
-    var courseCode = course.courseDetails.course_code.replace(/\s/g, '').toLowerCase();
+    /* Remove spaces, lower case that course code, and gimme it without ":master" or anything that will break because it isn't a "real psuedo selector" (mocking tone) */
+    var courseCode = course.course_code.replace(/\s/g, '').toLowerCase().split(':')[0];
     var count = $(`.byui.${courseCode}`).get().length;
 
     if (count !== 1) {
         logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
-            'Title': course.wrapLink(item.html_url, item.getTitle()),
+            'Title': course.wrapLink(item.getUrl(), item.getTitle()),
             'ID': item.getId()
         });
     }

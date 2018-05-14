@@ -6,7 +6,7 @@ module.exports = (item, logger) => {
         return;
     } else if (fileType(item.display_name) === 'video' || fileType(item.display_name) === 'audio') {
         logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
-            'Filename': course.wrapLink(item.html_url, item.getTitle()),
+            'Filename': course.wrapLink(item.getUrl(), item.getTitle()),
             'ID': item.id,
             'Size': `${Math.round(item.size / 1000000)} MB`
         });

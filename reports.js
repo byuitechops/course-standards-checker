@@ -16,14 +16,14 @@ module.exports = (logger, course) => {
     });
 
     var htmlHeader = `
-        <div>Course Name: ${course.courseDetails.name}</div>
-        <div>Course Code: ${course.courseDetails.course_code}</div>
-        <div>Course ID: ${course.courseDetails.id}</div>
-        <a target="_blank" href="https://byui.instructure.com/courses/${course.courseDetails.id}">https://byui.instructure.com/courses/${course.courseDetails.id}</a>
+        <div>Course Name: ${course.name}</div>
+        <div>Course Code: ${course.course_code}</div>
+        <div>Course ID: ${course.id}</div>
+        <a target="_blank" href="https://byui.instructure.com/courses/${course.id}">https://byui.instructure.com/courses/${course.id}</a>
     `;
 
     logger.setHtmlHeader(htmlHeader);
-    logger.reportTitle = `Standards Check - ${course.courseDetails.course_code}`;
+    logger.reportTitle = `Standards Check - ${course.course_code}`;
 
     /* What tags are added to the LMS Team report */
     logger.createReportSet('LMS Team', [

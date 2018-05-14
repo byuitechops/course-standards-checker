@@ -9,6 +9,11 @@ module.exports = (item, logger, course) => {
         return;
     }
 
+    /* Return if it is the homepage */
+    if (item.constructor.name === 'Page' && (item.front_page === true || item.getTitle === '-Setup Notes & Course Settings')) {
+        return;
+    }
+
     var moduleItemList = course.modules.reduce((acc, module) => acc.concat(module.items), []);
 
     /* Pages don't have content_ids so we have to check if they are connected to module items through the page urls */
@@ -30,7 +35,7 @@ module.exports = (item, logger, course) => {
     /* If there was no module item found for the item, log it */
     if (found === undefined) {
         logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
-            'Title': course.wrapLink(item.html_url, item.getTitle()),
+            'Title': course.wrapLink(item.getUrl(), item.getTitle()),
             'ID': item.getId(),
         });
     }

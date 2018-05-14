@@ -2,7 +2,7 @@ module.exports = (item, logger, course) => {
 
     function logItem(shouldBe) {
         logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
-            'Title': course.wrapLink(item.html_url, item.getTitle()),
+            'Title': course.wrapLink(item.getUrl(), item.getTitle()),
             'ID': item.getId(),
             'Currently': item.published,
             'Should Be Published': shouldBe,

@@ -26,14 +26,30 @@ module.exports = (logger, course) => {
         'Result': course.pages.length
     });
 
+    /* HTML Element Counts */
+    if (course.counts) {
+        logger.log('Course Statistics', {
+            'Category': 'Number of Links',
+            'Result': course.counts.anchor
+        });
+        logger.log('Course Statistics', {
+            'Category': 'Number of Images',
+            'Result': course.counts.img
+        });
+        logger.log('Course Statistics', {
+            'Category': 'Number of Iframes',
+            'Result': course.counts.iframe
+        });
+        logger.log('Course Statistics', {
+            'Category': 'Kaltura Links',
+            'Result': course.counts.iframe
+        });
+    }
+
     /* Total Course File Size */
     logger.log('Course Stastics', {
         'Category': 'Combined File Size',
         'Result': `${course.files.reduce((acc, file) => acc + file.size, 0)/1000000} MB`
     });
 
-    // Total lines of text
-    // Total point values
-    // Number of due dates
-    // Highest character count in course
 };

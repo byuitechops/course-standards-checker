@@ -16,11 +16,11 @@ module.exports = (item, logger, course) => {
 
     if (item.completion_requirement === undefined &&
         !badTypes.includes(item.type) &&
-        item.module_id !== instructorResources.id &&
-        item.module_id !== studentResources.id) {
+        (instructorResources && item.module_id !== instructorResources.id) &&
+        (studentResources && item.module_id !== studentResources.id)) {
 
         logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
-            'Title': course.wrapLink(item.html_url, item.getTitle()),
+            'Title': course.wrapLink(item.getUrl(), item.getTitle()),
             'ID': item.id,
             'Module': course.modules.find(module => module.id === item.module_id).name,
             'Type': item.type,

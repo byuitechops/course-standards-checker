@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
+  "bin": {
+    "course-standards": "main.js"
+  },
   "scripts": {
     "start": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,7 +15,7 @@
     "url": "git+https://github.com/byuitechops/course-standards-checker.git"
   },
   "author": "Zachary Williams, Benjamin Earl, Seth Childers",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/byuitechops/course-standards-checker/issues"
   },
@@ -23,5 +26,6 @@
     "enquirer": "^1.0.3",
     "logger": "github:byuitechops/logger",
     "prompt-checkbox": "^2.2.0"
-  }
+  },
+  "preferGlobal": true
 }

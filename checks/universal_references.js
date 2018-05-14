@@ -31,7 +31,7 @@ module.exports = (item, logger, course) => {
         /* See if it contains any of what we're looking for... */
         if (matches != null) {
             logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
-                'Title': course.wrapLink(item.html_url, item.getTitle()),
+                'Title': course.wrapLink(item.getUrl(), item.getTitle()),
                 'Reference': ref.type,
                 'Number of References': matches.length,
                 'ID': item.getId()

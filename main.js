@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const canvas = require('canvas-api-wrapper');
 const reports = require('./reports.js');
 const complexityReport = require('./course_statistics.js');
@@ -5,46 +7,52 @@ const Logger = require('logger');
 const logger = new Logger('Standards Check');
 const Enquirer = require('enquirer');
 const enquirer = new Enquirer();
+const fs = require('fs');
 
-/* Checks to run each item through */
-const checks = [
-    require('./checks/files_large.js'),
-    require('./checks/files_video_audio.js'),
-    require('./checks/files_naming.js'),
-    require('./checks/moduleitems_requirements.js'),
-    require('./checks/module_contains.js'),
-    require('./checks/universal_old_names.js'),
-    require('./checks/universal_not_deleted.js'),
-    require('./checks/universal_publish_settings.js'),
-    require('./checks/universal_references.js'),
-    require('./checks/universal_styling_div.js'),
-    require('./checks/universal_not_module_item'),
+/* Add script name here if you want to skip it, if it is broken or something */
+const skipChecks = [
+    'item_template.js',
+    'universal_images_from_d2l.js',
+    'universal_relative_links.js'
 ];
+
+var scriptNames = fs.readdirSync('./checks').filter(check => !skipChecks.includes(check));
 
 /* Disables location and timestamp in HTML report only */
 logger.disableLocation = true;
 logger.disableTimestamp = true;
 
-/* Canvas ID */
+/* Register checkboxes and add questions */
+enquirer.register('checkbox', require('prompt-checkbox'));
 enquirer.question('courseID', 'Canvas Course ID:');
+enquirer.question('checksToRun', {
+    type: 'checkbox',
+    message: 'Checks to Run:',
+    default: scriptNames,
+    choices: scriptNames
+});
 
 enquirer.ask()
     .then(async answers => {
 
+        const checks = answers.checksToRun.map(scriptName => require('./checks/' + scriptName));
+
         /* Retrieve the course */
-        var course = await canvas.getCourse(+answers.courseID);
-        course.courseDetails = await canvas(`/api/v1/courses/${answers.courseID}`);
+        var course = await canvas.getCourse(answers.courseID);
+
+        console.log('Retrieving course data...');
+        await course.get(true);
 
         /* Retrieve the contents of the course */
         var categories = [
-            await course.files.getAll(),
-            await course.pages.getAll(true),
-            await course.modules.getAll(true),
-            await course.quizzes.getAll(true),
-            await course.assignments.getAll(),
-            await course.discussions.getAll(),
+            course.files,
+            course.pages,
+            course.modules,
             course.modules.reduce((acc, module) => acc.concat(module.items), []),
+            course.quizzes,
             course.quizzes.reduce((acc, quiz) => acc.concat(quiz.questions), []),
+            course.assignments,
+            course.discussions
         ];
 
         /* Function to wrap script titles in fancy display goodness */
@@ -59,7 +67,6 @@ enquirer.ask()
         });
 
         complexityReport(logger, course);
-
         reports(logger, course);
     })
     .catch(console.error);

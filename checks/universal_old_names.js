@@ -32,7 +32,7 @@ module.exports = (item, logger, course) => {
 
     if (found !== undefined && found.newTitle.replace(/\s/g, '') !== item.getTitle().replace(/\s/g, '')) {
         logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
-            'Current Title': course.wrapLink(item.html_url, item.getTitle()),
+            'Current Title': course.wrapLink(item.getUrl(), item.getTitle()),
             'Title Should Be': found.newTitle,
             'ID': item.getId(),
         });
