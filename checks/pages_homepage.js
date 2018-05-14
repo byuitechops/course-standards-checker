@@ -5,13 +5,13 @@ module.exports = (item, logger, course) => {
     }
 
     /* Only apply check to the course homepage */
-    if (!item.title.includes('Course Homepage')) {
+    if (!item.getTitle().includes('Course Homepage')) {
         return;
     }
 
-    var srcUrl = `https://byui.instructure.com/courses/${courseOU}/files/${homeImage.jpg ID}/preview`;
-    var className = `byui ${course code}`;
-    var welcome = `Welcome to ${CAPSCOURSECODE NUMBER} - ${course title} (RN-BSN)`; // idk what the (RN-BSN) is supposed to be
+    // var srcUrl = `https://byui.instructure.com/courses/${courseOU}/files/${homeImage.jpg ID}/preview`;
+    // var className = `byui ${course code}`;
+    // var welcome = `Welcome to ${CAPSCOURSECODE NUMBER} - ${course title} (RN-BSN)`; // idk what the (RN-BSN) is supposed to be
     
     // https://byui.instructure.com/courses/11619/pages/course-homepage
     // <div class="byui nurs449"><img class="full" src="https://byui.instructure.com/courses/11619/files/1102102/preview" alt="homeImage (2).jpg" width="1800" height="540" data-api-endpoint="https://byui.instructure.com/api/v1/courses/11619/files/1102102" data-api-returntype="File" />
