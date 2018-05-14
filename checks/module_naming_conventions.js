@@ -4,11 +4,6 @@ module.exports = (item, logger, course) => {
         return;
     }
 
-    /*  */
-    if (item.name.includes('Instructor Resources') || item.name.includes('Student Resources')) {
-        return;
-    }
-
     /* Naming Conventions for Module Items. The 'title' property is not used, but is meant to help understand the regex */
     var namingConvention = [{
         title: 'Weekly Module',
