@@ -23,7 +23,7 @@ module.exports = (item, logger, course) => {
 module.exports.details = {
     filename: 'universal_absolute_links',
     title: 'Absolute Links',
-    description: 'Absolute links are links that point directly to a file by using its filepath. In Canvas, each file, page, discussion, etc. has a unique ID. Canvas links to them using the ID normally, which allows the file to moved around in the course files without it affecting any links to it. If the absolute filepath is used instead, however, moving the file will break the links.',
+    description: 'Absolute links are links that point directly to a file by using its filepath. In Canvas, each file, page, discussion, etc. has a unique ID. Canvas normally links to course items using the ID, which allows the file to moved around in the course files without it affecting any links to it. If the absolute filepath is used instead, however, moving the file will break the links.',
     types: [
         'Assignment',
         'Discussion',

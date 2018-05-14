@@ -9,6 +9,7 @@ module.exports = (item, logger, course) => {
             img: 0,
             iframe: 0,
             kalturaLinks: 0,
+            qualtricsLinks: 0,
         };
     }
 
@@ -22,7 +23,7 @@ module.exports = (item, logger, course) => {
     course.counts.img += $('img').get().length;
     course.counts.iframe += $('iframe').get().length;
     course.counts.kalturaLinks += $('[src*="kaltura"]').get().length + $('[href*="kaltura"]').get().length;
-
+    course.counts.qualtricsLinks += $('[src*="qualtrics"]').get().length + $('[href*="qualtrics"]').get().length;
     course.counts.img += $('*').filter((index, el) => {
         return $(el).css('background-image') !== undefined;
     }).get().length;

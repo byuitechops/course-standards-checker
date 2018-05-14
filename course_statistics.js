@@ -42,14 +42,18 @@ module.exports = (logger, course) => {
         });
         logger.log('Course Statistics', {
             'Category': 'Kaltura Links',
-            'Result': course.counts.iframe
+            'Result': course.counts.kalturaLinks
+        });
+        logger.log('Course Statistics', {
+            'Category': 'Qualtrics Links',
+            'Result': course.counts.qualtricsLinks
         });
     }
 
     /* Total Course File Size */
     logger.log('Course Statistics', {
         'Category': 'Combined File Size',
-        'Result': `${course.files.reduce((acc, file) => acc + file.size, 0)/1000000} MB`
+        'Result': `${(course.files.reduce((acc, file) => acc + file.size, 0)/1000000).toFixed(2)} MB`
     });
 
     // TODO number of qualtrics
