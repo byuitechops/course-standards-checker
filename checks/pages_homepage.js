@@ -1,3 +1,8 @@
+// Change class from 'byui oct' to 'byui coursecodenospaces' (i.e. 'byui nurs449')
+// Change <h2> to whatever the course code thing should be
+// Change <img> src to be the class image
+var cheerio = require('cheerio');
+
 module.exports = (item, logger, course) => {
     // An array of the types that should be run
     if (!module.exports.details.types.includes(item.constructor.name)) {
@@ -9,36 +14,80 @@ module.exports = (item, logger, course) => {
         return;
     }
 
-    // var srcUrl = `https://byui.instructure.com/courses/${courseOU}/files/${homeImage.jpg ID}/preview`;
-    // var className = `byui ${course code}`;
-    // var welcome = `Welcome to ${CAPSCOURSECODE NUMBER} - ${course title} (RN-BSN)`; // idk what the (RN-BSN) is supposed to be
-    
-    // https://byui.instructure.com/courses/11619/pages/course-homepage
-    // <div class="byui nurs449"><img class="full" src="https://byui.instructure.com/courses/11619/files/1102102/preview" alt="homeImage (2).jpg" width="1800" height="540" data-api-endpoint="https://byui.instructure.com/api/v1/courses/11619/files/1102102" data-api-returntype="File" />
-    // <h2>Welcome to NURS 449 - Community Nursing (RN-BSN)</h2>
+    /* Load html for the course homepage */
+    var $ = cheerio.load(item.getHtml());
 
-    // Change class from 'byui oct' to 'byui coursecodenospaces' (i.e. 'byui nurs449')
-    // Change <h2> to whatever the course code thing should be
-    // Change <img> src to be the class image
+    /* Get the first two words of the course code */
+    var classCode = course.course_code.split(' ');
+    classCode = classCode.slice(0, 1);
+    classCode = classCode.join('');
 
-    /* Test the module name against the naming convention regex */
-    // var found = namingConvention.find(convention => convention.regex.test(item.getTitle()));
+    /* Filter the course code, getting rid of dashes and colons */
+    classCode = classCode.replace(/:?/g, '');
+    classCode = classCode.replace(/-*/g, '');
 
-    // /* If it the module name doesn't follow the naming convention, log it */
-    // if (found === undefined) {
-    //     logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
-    //         'Title': course.wrapLink(item.getUrl(), item.getTitle()),
-    //         'ID': item.getId(),
-    //     });
-    // }
+    /* Make a copy that has spaces in the code */
+    var courseCode = classCode;
+
+    /* Get rid the spaces for the class name */
+    classCode = course.course_code.replace(/\s/g, '');
+
+    /* Get the html parts to check against */
+    var classNames = $('div').first().attr('class');
+    var src = $('img').attr('src');
+    var h2 = $('h2').first().text();
+
+    var hasHomeImage = false;
+
+    /* See if the homeImage.jpg file exists */
+    var homeImage = course.files.find(file => /homeimage.jpg/i.test(file.display_name));
+
+    /* If the file exists, create the correct url and check the current src url against it */
+    if (homeImage !== undefined) {
+        hasHomeImage = true;
+        var link = `https://byui.instructure.com/courses/${course.id}/files/${homeImage.id}/preview`;
+
+        /* Check if the image src is correct */
+        var correctLink = false;
+        if (src === link) {
+            correctLink = true;
+        }
+    }
+
+    /* Set the correct text for the first <h2> tag */
+    var goodh2 = `Welcome to ${courseCode} - `;
+
+    /* Check if the class names on the div wrapper are correct */
+    var divWrapper = false;
+    if (classNames === `byui ${classCode}`) {
+        divWrapper = true;
+    }
+
+    /* Check if the h2 text is correct */
+    var correcth2 = false;
+    if (h2.includes(goodh2)) {
+        correcth2 = true;
+    }
+
+    /* If any of the three above checks fail, log it */
+    if (divWrapper === false || homeImage === undefined || correctLink === false || correcth2 === false) {
+        logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
+            'Title': course.wrapLink(item.getUrl(), item.getTitle()),
+            'ID': item.getId(),
+            'Has homeImage.jpg': hasHomeImage,
+            'Correct Image Source': correctLink,
+            'Correct <div> Wrapper Classes': divWrapper,
+            'Correct <h2> Text': correcth2,
+        });
+    }
 
 };
 
 module.exports.details = {
-    filename: 'folders_main', // exclude .js
-    title: 'Module Naming Conventions',
-    description: 'These Modules do not follow the standardized naming conventions',
+    filename: 'pages_homepage', // exclude .js
+    title: 'Homepage Standards',
+    description: 'This course\'s homepage does not meet standards.',
     types: [
-        'Module',
+        'Page',
     ]
 };

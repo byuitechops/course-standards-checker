@@ -1,6 +1,6 @@
 const fileType = require('../misc_scripts/fileType.js');
 
-module.exports = (item, logger) => {
+module.exports = (item, logger, course) => {
 
     if (item.constructor.name !== 'File') {
         return;

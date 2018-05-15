@@ -38,7 +38,7 @@ module.exports = (item, logger, course) => {
 module.exports.details = {
     filename: 'moduleitems_naming_conventions', // exclude .js
     title: 'Module Item Naming Conventions',
-    description: 'These Module Items do not follow the standardized naming conventions',
+    description: 'These Module Items do not follow the standardized naming conventions.',
     types: [
         'Module',
     ]
