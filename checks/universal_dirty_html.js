@@ -50,7 +50,7 @@ module.exports = (item, logger, course) => {
 module.exports.details = {
     filename: 'universal_bad_html',
     title: 'Dirty HTML',
-    description: 'These items contain HTML that we consider "dirty." This includes using any deprecated classes or elements that were used in Brighspace, empty tags, as well as any "i" or "b" tags.',
+    description: 'These items contain HTML that we consider "dirty." This includes using any deprecated classes or elements that were used in Brightspace, empty tags, and any "i" or "b" tags.',
     types: [
         'Assignment',
         'Discussion',

@@ -41,12 +41,28 @@ module.exports = (logger, course) => {
             'Result': course.counts.iframe
         });
         logger.log('Course Statistics', {
+            'Category': 'Object Tags',
+            'Result': course.counts.objects
+        });
+        logger.log('Course Statistics', {
+            'Category': 'Video Tags',
+            'Result': course.counts.video
+        });
+        logger.log('Course Statistics', {
+            'Category': 'Audio Tags',
+            'Result': course.counts.audio
+        });
+        logger.log('Course Statistics', {
             'Category': 'Kaltura Links',
             'Result': course.counts.kalturaLinks
         });
         logger.log('Course Statistics', {
             'Category': 'Qualtrics Links',
             'Result': course.counts.qualtricsLinks
+        });
+        logger.log('Course Statistics', {
+            'Category': 'Equella Links',
+            'Result': course.counts.equellaLinks
         });
     }
 
@@ -56,9 +72,6 @@ module.exports = (logger, course) => {
         'Result': `${(course.files.reduce((acc, file) => acc + file.size, 0)/1000000).toFixed(2)} MB`
     });
 
-    // TODO number of qualtrics
     // TODO number of equella links
     // TODO harvard business school links
-    // TODO round combined file size
-    // TODO add object, audio, video tags
 };
