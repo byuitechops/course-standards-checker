@@ -76,8 +76,8 @@ module.exports = (item, logger, course) => {
             'ID': item.getId(),
             'Has homeImage.jpg': hasHomeImage,
             'Correct Image Source': correctLink,
-            'Correct <div> Wrapper Classes': divWrapper,
-            'Correct <h2> Text': correcth2,
+            'Correct Div Wrapper Classes': divWrapper,
+            'Correct Heading Text': correcth2,
         });
     }
 
