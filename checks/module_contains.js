@@ -7,7 +7,9 @@ module.exports = (item, logger, course) => {
     }
 
     /* Make each module its own object with the module name, the regex for that name, 
-    and all the module items that should be in that module, as well as the module items' regex */
+        and all the module items that should be in that module, as well as the module items' regex.
+        The items in moduleItems and moduleItemRegs should be equal in number and in matching order 
+        (i.e. Supplemental Resources would be the first element in each of the arrays) */
     var standardItems = [{
             moduleName: 'Student Resources',
             moduleReg: /student\s*resources/i,
@@ -55,19 +57,19 @@ module.exports = (item, logger, course) => {
                 /Supplemental\sResources/gi,
             ],
         },
-        {
-            moduleName: 'Week 06',
-            moduleReg: /Week\s06:/i,
-            moduleItems: [
-                'Mid-Course Feedback (or named something similar)',
-            ],
-            moduleItemRegs: [
-                /mid\d*\D*(course|semester)\d*\D*(feedback|evaluation)/gi,
-            ],
-        },
+        // {
+        //     moduleName: 'Week 06',
+        //     moduleReg: /Week\s06/i,
+        //     moduleItems: [
+        //         'Mid-Course Feedback (or named something similar)',
+        //     ],
+        //     moduleItemRegs: [
+        //         /mid\d*\D*(course|semester)\d*\D*(feedback|evaluation)/gi,
+        //     ],
+        // },
         {
             moduleName: 'Week 13',
-            moduleReg: /Week\s13:/i,
+            moduleReg: /Week\s13/i,
             moduleItems: [
                 'End of Course Feedback (or named something similar)',
             ],

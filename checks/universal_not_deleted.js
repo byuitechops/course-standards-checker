@@ -37,12 +37,15 @@ var moduleItemsDeleted = [
     /course\s*search\s*tool/gi,
     /weekly\s*patterns?\s*(and|&)\s*expectations?\s*/gi,
     /course\s*outline/gi,
+    /setup\snotes\s&\scourse\ssettings/i,
+    /(mid)\s*\D?\s*(course|semester)\s*(feedback)/i,
 ];
 
 /* Online modules to delete, not on campus modules */
 var modulesDeleted = [
     /\s*welcome\s*/gi,
     /^\s*resources\s*$/gi, // ^ and $ to prevent it from deleting "Student Resources" and "Instructor Resources"
+    /I-?Learn\s*(3\.0)?\s*Tour/gi,
 ];
 
 /* Online pages to delete, not on campus pages */
