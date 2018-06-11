@@ -72,6 +72,12 @@ module.exports = (logger, course) => {
         'Result': `${(course.files.reduce((acc, file) => acc + file.size, 0)/1000000).toFixed(2)} MB`
     });
 
+    /* Average Module Item Title Length */
+    logger.log('Course Statistics', {
+        'Category': 'Average Module Item Title Length',
+        'Result': Math.round(course.titleLengths.reduce((a, t) => a += t) / course.titleLengths.length)
+    });
+
     // TODO number of equella links
     // TODO harvard business school links
 };

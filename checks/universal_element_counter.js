@@ -13,7 +13,7 @@ module.exports = (item, logger, course) => {
             audio: 0,
             kalturaLinks: 0,
             qualtricsLinks: 0,
-            equellaLinks: 0,
+            equellaLinks: 0
         };
     }
 
