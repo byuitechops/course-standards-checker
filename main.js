@@ -10,10 +10,7 @@ const enquirer = new Enquirer();
 const fs = require('fs');
 
 /* Add script name here if you want to skip it, if it is broken or something */
-const skipChecks = [
-    'item_template.js',
-    'universal_transcripts.js'
-];
+const skipChecks = [];
 
 var scriptNames = fs.readdirSync('./checks').filter(check => !skipChecks.includes(check));
 
@@ -40,14 +37,14 @@ enquirer.ask()
         var course = await canvas.getCourse(answers.courseID);
 
         console.log('Retrieving course data...');
-        await course.get(true);
+        await course.getComplete();
 
         /* Retrieve the contents of the course */
         var categories = [
             course.files,
             course.pages,
             course.modules,
-            course.modules.reduce((acc, module) => acc.concat(module.items), []),
+            course.modules.reduce((acc, module) => acc.concat(module.moduleItems), []),
             course.quizzes,
             course.quizzes.reduce((acc, quiz) => acc.concat(quiz.questions), []),
             course.assignments,
