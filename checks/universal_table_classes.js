@@ -18,21 +18,16 @@ module.exports = (item, logger, course) => {
                 'ic-Table Class Found': false,
                 'Current Classes on Table': 'None',
             });
-            return;
         } else {
             classes = classes.split(' ');
             var icTable = classes.find(currClass => /^ic-Table$/i.test(currClass));
-            // var icTableStriped = classes.find(currClass => /^ic-Table--striped$/i.test(currClass));
 
-            if (icTable === undefined) {
-                logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
-                    'Title': course.wrapLink(item.getUrl(), item.getTitle()),
-                    'ID': item.getId(),
-                    'ic-Table Class Found': false,
-                    'Current Classes on Table': classes,
-                });
-                return;
-            }
+            logger.log(course.wrapTitle(module.exports.details.title, item.constructor.name), {
+                'Title': course.wrapLink(item.getUrl(), item.getTitle()),
+                'ID': item.getId(),
+                'ic-Table Class Found': icTable ? true : false,
+                'Current Classes on Table': classes,
+            });
         }
     });
 };
