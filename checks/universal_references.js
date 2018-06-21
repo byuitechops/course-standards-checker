@@ -13,6 +13,13 @@ var references = [{
 }, {
     reg: /((google\s*)?hangouts?(\s*on\s*air)?)|(HOA)/ig,
     type: 'Hangouts on Air References'
+}, {
+    reg: /\s(Mon|(Tu|Tue|Tues)|Wed|(Th|Thu|Thur|Thurs)|Fri|Sat|Sun)\W/g,
+    type: 'Abbreviated Due Days in Text'
+
+}, {
+    reg: /(Monday|Tuesday|Wed|Thursday|Friday|Saturday|Sunday)/g,
+    type: 'Due Days in Text'
 }];
 
 var validItems = [
