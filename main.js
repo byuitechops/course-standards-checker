@@ -10,7 +10,35 @@ const enquirer = new Enquirer();
 const fs = require('fs');
 
 /* Add script name here if you want to skip it, if it is broken or something */
-const skipChecks = [];
+const skipChecks = ['files_large.js',
+    'files_naming.js',
+    'files_video_audio.js',
+    'folders_extra.js',
+    'folders_main.js',
+    // 'generate_external_link_report.js',
+    'item_template.js',
+    'module_contains.js',
+    'module_naming_conventions.js',
+    'moduleitems_naming_conventions.js',
+    'moduleitems_requirements.js',
+    'moduleitems_title_lengths.js',
+    'pages_homepage.js',
+    'universal_absolute_links.js',
+    'universal_alt_attributes.js',
+    'universal_bad_links.js',
+    'universal_dirty_html.js',
+    'universal_element_counter.js',
+    'universal_link_finder.js',
+    'universal_not_deleted.js',
+    'universal_not_module_item.js',
+    'universal_old_names.js',
+    'universal_publish_settings.js',
+    'universal_references.js',
+    'universal_styling_div.js',
+    'universal_table_classes.js',
+    'universal_target_attributes.js',
+    'universal_transcripts.js'];
+
 
 var scriptNames = fs.readdirSync('./checks').filter(check => !skipChecks.includes(check));
 
