@@ -1,8 +1,13 @@
-/* Based off of universal_target_attribute.js */
+/* Based off of universal_link_finder.js */
 
 const cheerio = require('cheerio');
 
 module.exports = (item, logger, course) => {
+    /* Set variables for later use */
+    var courseId = course.id;
+    var courseName = course.name;
+    var courseCode = course.course_code;
+
     /* Return if it isn't a type that has HTML */
     if (!module.exports.details.types.includes(item.constructor.name)) {
         return;
@@ -13,44 +18,43 @@ module.exports = (item, logger, course) => {
         return;
     }
 
+    /* Module Items are set up different, so this loops through them properly to get external links */
     if (item.getHtml() == undefined) {
         item.moduleItems.forEach(element => {
             if (element.type === 'ExternalUrl') {
                 logger.log(module.exports.details.title, {
                     'External URL Link': element.external_url,
-                    'Link to Page': 'link',
-                    'Course Code': '44444',
-                    'Course Name': 'name',
-                    'URL to Course': 'url'
+                    'Link to Page': item.getUrl(),
+                    'Course Code': courseCode,
+                    'Course Name': courseName,
+                    'URL to Course': `https://byui.instructure.com/courses/${courseId}`
                 });
             }
         });
         return;
     }
+
+    /* This gets the href from each a and iframe tag on all items except module items */
     var $ = cheerio.load(item.getHtml());
 
     $('a').each((index, link) => {
-        // if ($(link).attr('href') && $(link).attr('href').includes('youtube.com')) {
         logger.log(module.exports.details.title, {
             'External URL Link': $(link).attr('href'),
-            'Link to Page': 'link',
-            'Course Code': '44444',
-            'Course Name': 'name',
-            'URL to Course': 'url'
+            'Link to Page': item.getUrl(),
+            'Course Code': courseCode,
+            'Course Name': courseName,
+            'URL to Course': `https://byui.instructure.com/courses/${courseId}`
         });
-        // }
     });
 
     $('iframe').each((index, link) => {
-        // if ($(link).attr('src') && $(link).attr('src').includes('youtube.com')) {
         logger.log(module.exports.details.title, {
             'External URL Link': $(link).attr('src'),
-            'Link to Page': 'link',
-            'Course Code': '44444',
-            'Course Name': 'name',
-            'URL to Course': 'url'
+            'Link to Page': item.getUrl(),
+            'Course Code': courseCode,
+            'Course Name': courseName,
+            'URL to Course': `https://byui.instructure.com/courses/${courseId}`
         });
-        // }
     });
 };
 
