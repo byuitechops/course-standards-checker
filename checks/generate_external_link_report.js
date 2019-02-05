@@ -8,7 +8,7 @@ module.exports = (item, logger, course) => {
     var courseName = course.name;
     var courseCode = course.course_code;
 
-    /* Return if it isn't a type that has HTML */
+    /* Return if it isn't the correct type */
     if (!module.exports.details.types.includes(item.constructor.name)) {
         return;
     }
@@ -19,7 +19,7 @@ module.exports = (item, logger, course) => {
     }
 
     /* Module Items are set up different, so this loops through them properly to get external links */
-    if (item.getHtml() == undefined) {
+    if (item.getHtml() == undefined && item.moduleItems) {
         item.moduleItems.forEach(element => {
             if (element.type === 'ExternalUrl') {
                 logger.log(module.exports.details.title, {

@@ -23,8 +23,10 @@
   "dependencies": {
     "canvas-api-wrapper": "^3",
     "cheerio": "^1.0.0-rc.2",
+    "d3-dsv": "^1.0.10",
     "enquirer": "^1.0.3",
     "logger": "github:byuitechops/logger",
+    "prompt": "^1.0.0",
     "prompt-checkbox": "^2.2.0"
   },
   "preferGlobal": true
