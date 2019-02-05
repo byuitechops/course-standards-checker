@@ -1,3 +1,8 @@
+/** ********************************************************************************************************************
+ For all the json reports in the reports folder of this repo, read them all and stick them into one giant csv.
+ To run, type 'node reportWrapper.js' and it will grab all the json files currently residing in the reports folder 
+ of this repo. Be sure to run npm start and generate the reports before using this. 
+***********************************************************************************************************************/
 const fs = require('fs');
 const path = require('path');
 const d3 = require('d3-dsv');
@@ -8,11 +13,10 @@ let files = fs.readdirSync(path.resolve('./reports'), {encoding: 'utf8'})
 // Get only the JSON files
 files = files.filter(file => file.includes('.json'));
 
-
-/* loop through the files, read in each one, parse it as JSON, 
-    then flatten the guts of each file object's "data" property 
-    by creating a key on the main object for each key in the 
-    nested "data" object */
+/** ******************************************************************************************************
+ loop through the files, read in each one, parse it as JSON, then flatten the guts of each file 
+ object's "data" property by creating a key on the main object for each key in the nested "data" object.
+*********************************************************************************************************/
 files = files.reduce((acc, file) => {
     let guts = fs.readFileSync(path.resolve(`./reports/${file}`), {encoding: 'utf8'});
     guts = JSON.parse(guts);
